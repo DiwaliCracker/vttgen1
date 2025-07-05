@@ -3,7 +3,6 @@ export default {
     const url = new URL(request.url);
     const getParam = (name) => url.searchParams.get(name);
 
-    // Parse parameters
     const images = [];
     let i = 1;
     while (getParam('img' + i)) {
@@ -23,7 +22,6 @@ export default {
 
     let vttContent = "WEBVTT\n\n";
     let currentTime = 0;
-
     const totalSprites = rows * cols;
 
     for (let imgIdx = 0; imgIdx < images.length; imgIdx++) {
@@ -50,7 +48,12 @@ export default {
     }
 
     return new Response(vttContent, {
-      headers: { 'Content-Type': 'text/vtt' }
+      status: 200,
+      headers: {
+        'Content-Type': 'text/vtt; charset=utf-8',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET',
+      }
     });
   }
 };
